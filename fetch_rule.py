@@ -24,6 +24,7 @@ if __name__ == "__main__":
         for item in ruleset["result"]["rules"]:
             if item["id"] == rule_id:
                 rule = item["expression"]
+                print(f'Current rule: {rule}')
 
                 with open("./current_rule.txt", "w") as f:
                     f.truncate()
