@@ -6,6 +6,10 @@ on:
 jobs:
     fetch:
         runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+
         steps:
             - name: Fetch repo
               uses: actions/checkout@v4
@@ -17,3 +21,15 @@ jobs:
                   RULESET_ID: ${{ secrets.RULESET_ID }}
                   RULE_ID: ${{ secrets.RULE_ID }}
               run: python3 ./fetch_rule.py
+
+            - name: Commit
+              run: |
+                git config --local user.name "github-action[bot]"
+                git add ./fetch_rule.py
+                git commit -m "Update rule"
+
+            - name: Push
+              uses: ad-m/github-push-action@v0.8.0
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  branch: main
