@@ -25,7 +25,8 @@ jobs:
             - name: Commit
               run: |
                 git config --local user.name "github-action[bot]"
-                git add ./fetch_rule.py
+                git config --local user.email "runner@github.com"
+                git add ./current_rule.txt
                 git commit -m "Update rule"
 
             - name: Push
