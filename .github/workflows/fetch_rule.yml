@@ -1,0 +1,19 @@
+name: Retrieve current rule
+
+on:
+    workflow_dispatch:
+
+jobs:
+    fetch:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Fetch repo
+              uses: actions/checkout@v4
+
+            - name: Read rule
+              env:
+                  API_TOKEN: ${{ secrets.API_TOKEN }}
+                  ZONE_ID: ${{ secrets.ZONE_ID }}
+                  RULESET_ID: ${{ secrets.RULESET_ID }}
+                  RULE_ID: ${{ secrets.RULE_ID }}
+              run: python3 ./fetch_rule.py
