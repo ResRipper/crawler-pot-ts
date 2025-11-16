@@ -24,16 +24,10 @@ jobs:
                   RULE_ID: ${{ secrets.RULE_ID }}
               run: python3 ./fetch_rule.py
 
-            - name: Commit
+            - name: Commit and push
               run: |
                 git config --local user.name "github-action[bot]"
                 git config --local user.email "runner@github.com"
                 git add ./current_rule.txt
                 git commit -m "Update rule" || exit 0
                 git push
-
-            # - name: Push
-            #   uses: ad-m/github-push-action@v0.8.0
-            #   with:
-            #       github_token: ${{ secrets.GITHUB_TOKEN }}
-            #       branch: main
